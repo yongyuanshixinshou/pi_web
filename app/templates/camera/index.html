@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}摄像头{% endblock %}
+
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block page_content %}
+    <div align="center">
+        <h2 id="direction" align="center">摄像头界面</h2>
+        <img src="{{ url_for('camera.video_feed') }}">
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}

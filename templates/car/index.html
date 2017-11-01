@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}小车控制{% endblock %}
+{% block head %}
+{{ super() }}
+<style>
+button{
+    width: 100px;
+    height:40px;
+}
+</style>
+{% endblock %}
+{% block page_content %}
+    <div align="center">
+        <h3 id="direction" align="center">STOP</h3>
+        <img src="{{ url_for('camera.video_feed') }}">
+    </div>
+    <div align="center">
+        <div>
+            <button id="foreward"> Foreward</button>
+        </div>
+        <div>
+            <button id="left"> Left</button>
+
+            <button id="right"> Right</button>
+        </div>
+        <div>
+            <button id="backward"> Backward</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        $(function () {
+            $("#foreward").mousedown(function () {
+                $.get("{{ url_for("car.control", direction="foreward") }}");
+                $("#direction").html("FOREWARD");
+            });
+            $("#left").mousedown(function () {
+                $.get("{{ url_for("car.control", direction="left") }}");
+                $("#direction").html("LEFT");
+            });
+            $("#right").mousedown(function () {
+                $.get("{{ url_for("car.control", direction="right") }}");
+                $("#direction").html("RIGHT");
+            });
+            $("#backward").mousedown(function () {
+                $.get("{{ url_for("car.control", direction="backward") }}");
+                $("#direction").html("BACKWARD");
+            });
+            $("button").mouseup(function () {
+                $.get("{{ url_for("car.control", direction="stop") }}");
+                $("#direction").html("STOP");
+            });
+        })
+    </script>
+{% endblock %}
